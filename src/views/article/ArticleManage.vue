@@ -121,6 +121,8 @@ const articleList = async () => {
     }
 }
 
+const myQuillEditor = ref(null)
+
 //清空模型的數據
 const clearData = () => {
     articleModel.value.title = '';
@@ -128,7 +130,10 @@ const clearData = () => {
     articleModel.value.coverImg = '';
     articleModel.value.content = '';
     articleModel.value.state = '';
+    myQuillEditor.value.setHTML('')
 }
+
+
 
 //定義變量,控制標題的展示
 const title = ref('')
@@ -146,6 +151,7 @@ const showDrawer = (row) => {
 
 articleCategoryList()
 articleList();
+
 
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
@@ -323,8 +329,9 @@ const deleteArticle = (row) => {
                 </el-form-item> -->
                 <el-form-item label="文章內容">
                     <div class="editor">
-                        <quill-editor theme="snow" v-model:content="articleModel.content" contentType="html">
-                        </quill-editor>
+                        <QuillEditor ref="myQuillEditor" heme="snow" v-model:content="articleModel.content"
+                            contentType="html">
+                        </QuillEditor>
                     </div>
                 </el-form-item>
                 <el-form-item>
